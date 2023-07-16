@@ -32,7 +32,7 @@ export default function page() {
       <div className="flex justify-center">
         <div className="grid mx-auto grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {sortMovies.slice(0, 20).map((movie) => (
-            <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-72 sm:h-fit !p-1 mb-4 3xl:p-![8px]">
+            <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full md:h-72 sm:h-fit !p-1 mb-4 3xl:p-![8px]">
               <div className="h-fit w-full">
                 <div className="relative w-full">
                   <img
