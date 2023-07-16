@@ -1,23 +1,23 @@
 "use client";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Carousel from "../components/shared/Carousel";
 import { BsStarFill } from "react-icons/bs";
+import Link from "next/link";
 
 export default function page() {
   // const g = Movies.filter(movie => parseFloat(movie.rating) >= 8.8)
-  const [movies,setMovies]=useState([])
+  const [movies, setMovies] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:3000/api/movies")
-    .then(response=>response.json())
-    .then(rs=>setMovies(rs.data))
-    .catch(err=>console.log(err))
-  },[])
+      .then((response) => response.json())
+      .then((rs) => setMovies(rs.data))
+      .catch((err) => console.log(err));
+  }, []);
   const sortMovies = movies.sort(
     (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
   );
-  
+
   const admin_email = "";
 
   return (
@@ -26,7 +26,9 @@ export default function page() {
         <Carousel />
       </div>
       <div className="bg-stone-600 py-2 md:py-4 lg:py-8 px-3 md:px-6 lg:px-12">
-        <h1 className="text-base md:text-xl lg:text-2xl font-bold">Latest Movies</h1>
+        <h1 className="text-base md:text-xl lg:text-2xl font-bold">
+          Latest Movies
+        </h1>
       </div>
       <div className="flex justify-center">
         <div className="grid mx-auto grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -42,9 +44,11 @@ export default function page() {
                 </div>
                 <div className="mb-3 flex items-center justify-between px-1 md:items-start">
                   <div className="mb-2">
-                    <p className="text-lg font-bold text-navy-700">
-                      {movie.title.slice(0, 15)}
-                    </p>
+                    <Link href={`/movies/${movie.rank}`}>
+                      <p className="text-lg font-bold text-navy-700">
+                        {movie.title.slice(0, 15)}
+                      </p>
+                    </Link>
                     <span className="text-sm flex items-center">
                       Rating: {movie.rating} <BsStarFill />
                     </span>
