@@ -1,24 +1,23 @@
 "use client";
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "../components/shared/Carousel";
-import { Movies } from "../Movies";
 import { BsStarFill } from "react-icons/bs";
 
 export default function page() {
   // const g = Movies.filter(movie => parseFloat(movie.rating) >= 8.8)
-  const sortMovies = Movies.sort(
+  const [movies,setMovies]=useState([])
+
+  useEffect(()=>{
+    fetch("http://localhost:3000/api/movies")
+    .then(response=>response.json())
+    .then(rs=>setMovies(rs.data))
+    .catch(err=>console.log(err))
+  },[])
+  const sortMovies = movies.sort(
     (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
   );
-
-  // const calculateAverageRating = (movies) => {
-  //   let totalRating = 0;
-  //   movies.forEach((movie) => {
-  //     totalRating += parseFloat(movie.rating);
-  //   });
-  //   return (totalRating / movies.length).toFixed(1);
-  // };
-
+  
   const admin_email = "";
 
   return (
