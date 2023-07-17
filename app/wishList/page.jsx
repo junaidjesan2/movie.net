@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { remove } from "../../components/Redux/CartSlice";

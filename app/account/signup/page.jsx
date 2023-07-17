@@ -3,7 +3,6 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { login } from "../../../components/Redux/UserSlice";
