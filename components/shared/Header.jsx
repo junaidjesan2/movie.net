@@ -2,15 +2,16 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { AiOutlineDownCircle } from "react-icons";
+import { selectUser } from "../Redux/UserSlice";
 
 function Navbar() {
   const [openDrower, setOpenDrower] = useState(false);
   const movie = useSelector((state) => state.cart);
-  const admin_email = "a";
+
+  const admin_email = useSelector(selectUser);
   return (
     <>
-      <nav className="flex items-center relative justify-between bg-[#E5E5E5] px-5 py-6 w-full">
+      <nav className="flex items-center relative justify-between bg-white px-5 py-6 w-full">
         <div>
           <Link href="/" className="text-[#6A64F1] text-xl font-bold">
             Movie.net
@@ -31,7 +32,16 @@ function Navbar() {
               All Movies
             </Link>
           </li>
-          {!admin_email ? (
+          {admin_email.user.user == "admin@google.dev" ? (
+            <div className="flex items-center gap-3">
+              <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
+                <Link href="/wishList">wish List ({movie.length})</Link>
+              </li>
+              <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
+                <Link href="/account/signout">Sign Out</Link>
+              </li>
+            </div>
+          ) : (
             <div className="flex items-center gap-3">
               <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
                 <Link href="/account/signin" className="">
@@ -44,10 +54,6 @@ function Navbar() {
                 </Link>
               </li>
             </div>
-          ) : (
-            <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
-              <Link href="/wishList">wish List ({movie.length})</Link>
-            </li>
           )}
         </ul>
         <div className="flex md:hidden gap-3 items-center">
@@ -71,7 +77,11 @@ function Navbar() {
                 </svg>
               </div>
             </button>
-            <Drower openDrower={openDrower} movie={movie} setOpenDrower={setOpenDrower} />
+            <Drower
+              openDrower={openDrower}
+              movie={movie}
+              setOpenDrower={setOpenDrower}
+            />
           </div>
         </div>
       </nav>
@@ -80,8 +90,7 @@ function Navbar() {
 }
 export default Navbar;
 
-const Drower = ({ openDrower, setOpenDrower,movie }) => {
-  const admin_email="dl"
+const Drower = ({ openDrower, setOpenDrower, movie }) => {
   if (!openDrower) {
     return null;
   }
@@ -99,7 +108,11 @@ const Drower = ({ openDrower, setOpenDrower,movie }) => {
             All Movies
           </Link>
         </li>
-        {!admin_email ? (
+        {!admin_email.user.user == "admin@google.dev" ? (
+          <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+            <Link href="/wishList">wish List ({movie.length})</Link>
+          </li>
+        ) : (
           <div className="flex items-center gap-3">
             <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
               <Link href="/account/signin" className="">
@@ -112,10 +125,6 @@ const Drower = ({ openDrower, setOpenDrower,movie }) => {
               </Link>
             </li>
           </div>
-        ) : (
-          <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-            <Link href="/wishList">wish List ({movie.length})</Link>
-          </li>
         )}
         <li
           onClick={() => setOpenDrower(false)}

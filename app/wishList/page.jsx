@@ -27,9 +27,6 @@ export default function page() {
                   <div class="text-left font-semibold">Movie Name</div>
                 </th>
                 <th class="p-2">
-                  <div class="text-left font-semibold">Trailer link</div>
-                </th>
-                <th class="p-2">
                   <div class="text-center font-semibold">Action</div>
                 </th>
               </tr>
@@ -43,11 +40,6 @@ export default function page() {
                   </td>
                   <td class="p-2">
                     <div class="font-medium text-gray-800">{movie.title}</div>
-                  </td>
-                  <td class="p-2">
-                    <div class="text-left font-medium text-green-500">
-                      <Link href={`/movie/${movie.rank}`}>Link</Link>
-                    </div>
                   </td>
                   <td class="p-2">
                     <div class="flex justify-center">

@@ -4,7 +4,9 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { login } from "../../../components/Redux/UserSlice";
 
 const FormSchema = Yup.object().shape({
   fName: Yup.string().min(5).max(23).required("Please enter your First Name"),
@@ -13,19 +15,30 @@ const FormSchema = Yup.object().shape({
 });
 
 const initialValue = {
-  fName: "Full Name",
-  email: "Email",
-  password: "*****",
+  fName: "",
+  email: "",
+  password: "",
 };
 function App() {
-  // const router = useRouter();
+  const router = useRouter();
+  const dispatch=useDispatch()
   const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
-      alert("Successfully Account created")
-      window.location.replace('http://localhost:3000/movies')
-  }})
+      if (values.email == "admin@google.dev" && values.password == "adminP") {
+        dispatch(
+          login({
+            user: values.email,
+          })
+        );
+        alert("Sign Up Successfully");
+        router.push("/");
+      } else {
+        alert(`email is ${values.email} and password is ${values.password}`)
+      }
+    },
+  });
 
   return (
     <div className="flex items-center justify-center p-4">

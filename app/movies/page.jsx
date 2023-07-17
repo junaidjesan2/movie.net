@@ -1,26 +1,31 @@
 "use client";
-import axios from "axios";
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
-import { Movies } from "../../Movies";
 import Paginate from "../../components/shared/Paginate";
 
 import { BsStarFill } from "react-icons/bs";
+import fetchData from "../../components/FetchData";
 
 export default function AllMovies() {
-  const [movies, setMovies] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(10);
+  const [postPerPage, setPostPerPage] = useState(20);
+  const [searchValue, setSearchValue] = useState("");
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/movies")
-      .then((rs) => setMovies(rs.data.data))
-      .catch((er) => console.log(er));
+    const fetchDataFromApi = async () => {
+      const fetchedData = await fetchData();
+      setMovies(fetchedData);
+    };
+
+    fetchDataFromApi();
   }, []);
-  const f = Movies.find((i) =>
+
+
+  console.log(movies)
+
+  const f = movies.find((i) =>
     i.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
   );
 
@@ -30,8 +35,6 @@ export default function AllMovies() {
 
   //change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const admin_email = "admin23@admin.dev";
 
   return (
     <div className="">
@@ -59,7 +62,7 @@ export default function AllMovies() {
         </form>
       </div>
       {searchValue && f ? (
-        <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full sm:mx-2 md:mx-8 lg:mx-20 h-72 !p-1 mb-4 3xl:p-![8px]">
+        <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full sm:mx-2 md:mx-8 lg:mx-20 h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]">
           <div className="h-fit w-full">
             <div className="relative w-full">
               <img
@@ -78,9 +81,6 @@ export default function AllMovies() {
                 <span className="text-sm flex items-center">
                   Rating: {f.rating} <BsStarFill />
                 </span>
-                <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-                  {f.description.slice(0, 70)} ...
-                </p>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function AllMovies() {
           <div className="flex justify-center">
             <div className="grid mx-auto grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {currentPost.map((movie) => (
-                <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-72 !p-1 mb-4 3xl:p-![8px]">
+                <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]">
                   <div className="h-fit w-full">
                     <div className="relative w-full">
                       <img
@@ -116,9 +116,6 @@ export default function AllMovies() {
                         <span className="text-sm flex items-center">
                           Rating: {movie.rating} <BsStarFill />
                         </span>
-                        <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-                          {movie.description.slice(0, 70)} ...
-                        </p>
                       </div>
                     </div>
                   </div>

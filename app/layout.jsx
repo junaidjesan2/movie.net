@@ -12,7 +12,7 @@ export const metadata = {
 export default function layout({ children }) {
   return (
     <html lang="en">
-      <body className="max-w-[1250px] bg-[#e5e5e5] mx-auto">
+      <body className="max-w-[1250px] bg-white mx-auto">
         <DataProvider>
           <div>
             <Navbar />

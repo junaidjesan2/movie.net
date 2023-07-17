@@ -3,29 +3,33 @@ import React, { useEffect, useState } from "react";
 import Carousel from "../components/shared/Carousel";
 import { BsStarFill } from "react-icons/bs";
 import Link from "next/link";
+import fetchData from "../components/FetchData";
 
 export default function page() {
   // const g = Movies.filter(movie => parseFloat(movie.rating) >= 8.8)
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/movies")
-      .then((response) => response.json())
-      .then((rs) => setMovies(rs.data))
-      .catch((err) => console.log(err));
+    const fetchDataFromApi = async () => {
+      const fetchedData = await fetchData();
+      setMovies(fetchedData);
+    };
+
+    fetchDataFromApi();
   }, []);
+
+
   const sortMovies = movies.sort(
     (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
   );
 
-  const admin_email = "";
 
   return (
     <div>
       <div>
         <Carousel />
       </div>
-      <div className="bg-stone-600 py-2 md:py-4 lg:py-8 px-3 md:px-6 lg:px-12">
+      <div className="bg-stone-400 py-2 md:py-4 lg:py-8 px-3 md:px-6 lg:px-12">
         <h1 className="text-base md:text-xl lg:text-2xl font-bold">
           Latest Movies
         </h1>
@@ -33,7 +37,7 @@ export default function page() {
       <div className="flex justify-center">
         <div className="grid mx-auto grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {sortMovies.slice(0, 20).map((movie) => (
-            <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full md:h-72 sm:h-fit !p-1 mb-4 3xl:p-![8px]">
+            <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full md:h-fit drop-shadow hover:drop-shadow-md sm:h-fit !p-1 mb-4 3xl:p-![8px]">
               <div className="h-fit w-full">
                 <div className="relative w-full">
                   <img
@@ -52,9 +56,6 @@ export default function page() {
                     <span className="text-sm flex items-center">
                       Rating: {movie.rating} <BsStarFill />
                     </span>
-                    <p className="mt-1 text-sm font-medium text-gray-600 md:mt-2">
-                      {movie.description.slice(0, 70)} ...
-                    </p>
                   </div>
                 </div>
               </div>

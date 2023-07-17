@@ -1,6 +1,9 @@
 "use client";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
+import { login } from "../../../components/Redux/UserSlice";
+import { useRouter } from "next/navigation";
 
 const FormSchema = Yup.object().shape({
   email: Yup.string().email().required("Please enter your email"),
@@ -12,12 +15,23 @@ const initialValue = {
   password: "",
 };
 function App() {
+  const dispatch = useDispatch();
+  const router=useRouter()
   const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
-      alert("Successfully Account created")
-      window.location.replace("http://localhost:3000/movies");
+      if (values.email == "admin@google.dev" && values.password == "adminP") {
+        dispatch(
+          login({
+            user:values.email
+          })
+        );
+        alert("log in Successfully")
+        router.push('/movies')
+      } else {
+        errors.email("email is not valid");
+      }
     },
   });
   return (
