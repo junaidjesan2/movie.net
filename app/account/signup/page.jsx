@@ -4,8 +4,6 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { login } from "../../../components/Redux/UserSlice";
 
 const FormSchema = Yup.object().shape({
   fName: Yup.string().min(5).max(23).required("Please enter your First Name"),
@@ -20,21 +18,15 @@ const initialValue = {
 };
 function App() {
   const router = useRouter();
-  const dispatch=useDispatch()
+  
   const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
       if (values.email == "admin@google.dev" && values.password == "adminP") {
-        dispatch(
-          login({
-            user: values.email,
-          })
-        );
-        alert("Sign Up Successfully");
-        router.push("/");
-      } else {
-        alert(`email is ${values.email} and password is ${values.password}`)
+        alert("confirm");
+        localStorage.setItem("email", `${values.email}`);
+        router.push('/')
       }
     },
   });

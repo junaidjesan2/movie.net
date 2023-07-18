@@ -23,9 +23,7 @@ export default function AllMovies() {
   }, []);
 
 
-  console.log(movies)
-
-  const f = movies.find((i) =>
+  const f = movies?.find((i) =>
     i.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
   );
 
@@ -97,7 +95,7 @@ export default function AllMovies() {
           <div className="flex justify-center">
             <div className="grid mx-auto grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {currentPost.map((movie) => (
-                <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]">
+                <div key={movie.rank} className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]">
                   <div className="h-fit w-full">
                     <div className="relative w-full">
                       <img

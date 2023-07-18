@@ -1,20 +1,22 @@
 "use client";
+
 import Link from "next/link";
-import React, { useState } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { selectUser } from "../Redux/UserSlice";
+import React, { useState ,useEffect} from "react";
 
 function Navbar() {
   const [openDrower, setOpenDrower] = useState(false);
-  const movie = useSelector((state) => state.cart);
+  const [admin_email,setAdminEmail]=useState([])
 
-  const admin_email = useSelector(selectUser);
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    setAdminEmail(email)
+  }, []);
   return (
     <>
       <nav className="flex items-center relative justify-between bg-white px-5 py-6 w-full">
         <div>
           <Link href="/" className="text-[#6A64F1] text-xl font-bold">
-            Movie.net
+            Movie
           </Link>
         </div>
         <ul
@@ -32,13 +34,10 @@ function Navbar() {
               All Movies
             </Link>
           </li>
-          {admin_email.user.user == "admin@google.dev" ? (
+          {admin_email === "admin@google.dev" ? (
             <div className="flex items-center gap-3">
               <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
-                <Link href="/wishList">wish List ({movie.length})</Link>
-              </li>
-              <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
-                <Link href="/account/signout">Sign Out</Link>
+                <Link href="/wishList">wish List</Link>
               </li>
             </div>
           ) : (
@@ -77,11 +76,7 @@ function Navbar() {
                 </svg>
               </div>
             </button>
-            <Drower
-              openDrower={openDrower}
-              movie={movie}
-              setOpenDrower={setOpenDrower}
-            />
+            <Drower openDrower={openDrower} setOpenDrower={setOpenDrower} />
           </div>
         </div>
       </nav>
@@ -90,7 +85,7 @@ function Navbar() {
 }
 export default Navbar;
 
-const Drower = ({ openDrower, setOpenDrower, movie }) => {
+const Drower = ({ openDrower, setOpenDrower }) => {
   if (!openDrower) {
     return null;
   }
@@ -108,9 +103,9 @@ const Drower = ({ openDrower, setOpenDrower, movie }) => {
             All Movies
           </Link>
         </li>
-        {!admin_email.user.user == "admin@google.dev" ? (
+        {admin_email == "admin@google.dev" ? (
           <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-            <Link href="/wishList">wish List ({movie.length})</Link>
+            <Link href="/wishList">wish List</Link>
           </li>
         ) : (
           <div className="flex items-center gap-3">

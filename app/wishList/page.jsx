@@ -1,15 +1,18 @@
-"use client";
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { remove } from "../../components/Redux/CartSlice";
+"use client"
+import { useEffect, useState } from "react";
 
 export default function page() {
-    const dispatch = useDispatch();
-  const movies = useSelector((state) => state.cart);
+  const [movie, setMovies] = useState([]);
 
-  const handleRemove=(movie)=>{
-    dispatch(remove(movie.rank))
-  }
+  useEffect(() => {
+    const movie = localStorage.getItem("watchlater");
+    setMovies(movie);
+  }, []);
+
+  const handleRemove = (movie) => {
+    alert("do you really want to remove")
+    localStorage.removeItem(`${movie}`);
+  };
   return (
     <div className="min-h-screen">
       <div class="mx-auto w-full max-w-2xl rounded-sm border border-gray-200 bg-white shadow-lg">
@@ -32,7 +35,6 @@ export default function page() {
             </thead>
 
             <tbody class="divide-y divide-gray-100 text-sm">
-              {movies?.map((movie) => (
                 <tr>
                   <td class="p-2">
                     <input type="checkbox" class="h-5 w-5" value="id-1" />
@@ -42,7 +44,7 @@ export default function page() {
                   </td>
                   <td class="p-2">
                     <div class="flex justify-center">
-                      <button onClick={()=>handleRemove(movie)}>
+                      <button onClick={() => handleRemove(movie)}>
                         <svg
                           class="h-8 w-8 rounded-full p-1 hover:bg-gray-100 hover:text-blue-600"
                           fill="none"
@@ -61,7 +63,6 @@ export default function page() {
                     </div>
                   </td>
                 </tr>
-              ))}
             </tbody>
           </table>
         </div>
