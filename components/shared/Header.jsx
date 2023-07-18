@@ -13,10 +13,10 @@ function Navbar() {
   }, []);
   return (
     <>
-      <nav className="flex items-center relative justify-between bg-white px-5 py-6 w-full">
+      <nav className="flex items-center relative justify-between bg-white drop-shadow-sm px-5 py-6 w-full">
         <div>
           <Link href="/" className="text-[#6A64F1] text-xl font-bold">
-            Movie
+            Movie.net
           </Link>
         </div>
         <ul

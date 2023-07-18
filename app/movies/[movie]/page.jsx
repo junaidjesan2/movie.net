@@ -8,9 +8,12 @@ import fetchData from "../../../components/FetchData";
 export default function page({ params }) {
   const [openModal, setOpenModal] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [datas, setData] = useState([]);
+  const [admin_email, setAdminEmail] = useState([]);
 
-  const admin_email = localStorage.getItem("email");
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    setAdminEmail(email);
+  }, []);
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -60,6 +63,12 @@ export default function page({ params }) {
                         className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"
                       >
                         <i className="mdi mdi-cart -ml-2 mr-2"></i> Watch Later
+                      </button>
+                      <button
+                        onClick={() => setOpenModal(true)}
+                        className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"
+                      >
+                        <i className="mdi mdi-cart -ml-2 mr-2"></i> make Rating
                       </button>
                     </div>
                   )}

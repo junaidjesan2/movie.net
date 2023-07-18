@@ -10,11 +10,11 @@ export const metadata = {
 export default function layout({ children }) {
   return (
     <html lang="en">
-      <body className="max-w-[1250px] bg-white mx-auto">
-        <div>
+      <body className=" bg-white mx-auto">
+        <div className="max-w-[1250px] mx-auto">
           <Navbar />
         </div>
-        <main>{children}</main>
+        <main className="max-w-[1250px] mx-auto">{children}</main>
         <div>
           <Footer />
         </div>

@@ -2,6 +2,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const FormSchema = Yup.object().shape({
   comment: Yup.string().min(5).max(23).required("Please enter your First Name"),
@@ -12,13 +13,16 @@ const initialValue = {
 };
 
 export default function Modal({ openModal, setOpenModal }) {
+  const router = useRouter();
   const [ratingValue, setRatingValue] = useState(0);
-  const { values, errors, handleSubmit, handleChange} = useFormik({
+  const { values, errors, handleSubmit, handleChange } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
-      alert("Successfully Commented")
-      window.location.replace("http://localhost:3000/");
+      if (values !== "") {
+        alert("Successfully Commented");
+        router.push("/");
+      }
     },
   });
 
@@ -116,7 +120,10 @@ export default function Modal({ openModal, setOpenModal }) {
                     Leave a message, if you want
                   </textarea>
                   {<div className="text-red-600">{errors.comment}</div>}
-                  <button onSubmit={()=>handleSubmit()} className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white">
+                  <button
+                    onSubmit={() => handleSubmit()}
+                    className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
+                  >
                     Rate now
                   </button>
                 </div>
