@@ -35,8 +35,8 @@ export default function AllMovies() {
 
   return (
     <div className="">
-      <div className="mx-auto my-4">
-        <form action="" className="relative mx-auto w-max">
+      <div className="sm:mr-3/4 sm:ml-1 md:mr-none my-4">
+        <form action="" className="relative w-max">
           <input
             type="search"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -59,9 +59,9 @@ export default function AllMovies() {
         </form>
       </div>
       {searchValue && f ? (
-        <div className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full sm:mx-2 md:mx-8 lg:mx-20 h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]">
+        <div className="!z-5 rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full sm:mx-2 md:mx-8 lg:mx-20 h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]">
           <div className="h-fit w-full">
-            <div className="relative w-full">
+            <div className="w-full">
               <img
                 src={f.image}
                 className="mb-3 max-h-32 w-full rounded-xl object-cover"
@@ -94,15 +94,15 @@ export default function AllMovies() {
               </h1>
             </div>
           )}
-          <div className="flex justify-center">
+          <div className="flex justify-center top-2">
             <div className="grid mx-auto grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {currentPost.map((movie) => (
                 <div
                   key={movie.rank}
-                  className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]"
+                  className="!z-5 rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full h-fit hover:drop-shadow-md drop-shadow !p-1 mb-4 3xl:p-![8px]"
                 >
                   <div className="h-fit w-full">
-                    <div className="relative w-full">
+                    <div className=" w-full">
                       <img
                         src={movie.image}
                         className="mb-3 max-h-32 w-full rounded-xl object-cover"

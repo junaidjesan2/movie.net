@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 function Navbar() {
   const [openDrower, setOpenDrower] = useState(false);
-  const [admin_email,setAdminEmail]=useState([])
+  const [admin_email, setAdminEmail] = useState([]);
 
   useEffect(() => {
     const email = localStorage.getItem("email");
-    setAdminEmail(email)
+    setAdminEmail(email);
   }, []);
   return (
     <>
@@ -76,7 +76,11 @@ function Navbar() {
                 </svg>
               </div>
             </button>
-            <Drower openDrower={openDrower} setOpenDrower={setOpenDrower} />
+            <Drower
+              openDrower={openDrower}
+              admin_email={admin_email}
+              setOpenDrower={setOpenDrower}
+            />
           </div>
         </div>
       </nav>
@@ -85,42 +89,13 @@ function Navbar() {
 }
 export default Navbar;
 
-const Drower = ({ openDrower, setOpenDrower }) => {
+const Drower = ({ openDrower, setOpenDrower, admin_email }) => {
   if (!openDrower) {
     return null;
   }
   return (
-    <div className="drop-down  w-48 overflow-hidden bg-white rounded-md shadow absolute top-12 right-3">
+    <div className="w-48 fixed bg-white rounded-md shadow top-4 right-3">
       <ul>
-        <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400"></li>
-        <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-          <Link href="/" className="">
-            Home
-          </Link>
-        </li>
-        <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-          <Link href="/movies" className="">
-            All Movies
-          </Link>
-        </li>
-        {admin_email == "admin@google.dev" ? (
-          <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-            <Link href="/wishList">wish List</Link>
-          </li>
-        ) : (
-          <div className="flex items-center gap-3">
-            <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-              <Link href="/account/signin" className="">
-                Sign In
-              </Link>
-            </li>
-            <li className="px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-              <Link href="/account/signup" className="">
-                Sign Up
-              </Link>
-            </li>
-          </div>
-        )}
         <li
           onClick={() => setOpenDrower(false)}
           className="px-3  py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400"
@@ -143,6 +118,36 @@ const Drower = ({ openDrower, setOpenDrower }) => {
           </span>
           <span> Exit </span>
         </li>
+        <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+          <Link href="/" className="">
+            Home
+          </Link>
+        </li>
+        <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+          <Link href="/movies" className="">
+            All Movies
+          </Link>
+        </li>
+        {admin_email == "admin@google.dev" ? (
+          <Link href="/wishList">
+            <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+              wish List
+            </li>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-3">
+            <Link href="/account/signin" className="">
+              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                Sign In
+              </li>
+            </Link>
+            <Link href="/account/signup" className="">
+              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                Sign Up
+              </li>
+            </Link>
+          </div>
+        )}
       </ul>
     </div>
   );

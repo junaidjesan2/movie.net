@@ -5,9 +5,9 @@ const fetchData = async () => {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "366277ba81mshc44c174ecd5bba8p176fccjsn0be5fb36733d",
-      "X-RapidAPI-Host": "imdb-top-100-movies.p.rapidapi.com",
-    },
+      'X-RapidAPI-Key': '89fb8c9e73msh0adc997e2f26eedp1014dfjsn03d040e65fca',
+      'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'
+    }
   };
   try {
     const response = await fetch(url, options);

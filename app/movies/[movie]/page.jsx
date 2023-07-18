@@ -33,12 +33,11 @@ export default function page({ params }) {
   return (
     <div>
       {f && (
-        <div className="w-full max-w-6xl rounded bg-slate-200 shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
+        <div className="w-full max-w-6xl rounded bg-slate-200 shadow-xl p-10 lg:p-20 mx-auto text-gray-800 md:text-left">
           <div className="md:flex items-center -mx-10">
             <div className="w-full md:w-1/2 px-10 mb-10 md:mb-0">
-              <div className="relative">
-                <img src={f.image} className="w-full relative z-10" alt="" />
-                <div className="border-4 border-yellow-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
+              <div className="">
+                <img src={f.image} className="w-full z-10" alt="" />
               </div>
             </div>
             <div className="w-full lg:w-1/2 px-10">
