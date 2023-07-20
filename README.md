@@ -12,7 +12,9 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open (https://imaginative-pegasus-4d61b5.netlify.app/) with your browser to see the result.
+email: admin@google.dev
+password: adminP
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
