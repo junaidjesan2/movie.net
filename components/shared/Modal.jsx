@@ -13,7 +13,7 @@ const initialValue = {
   comment: "",
 };
 
-export default function Modal({ openModal, setOpenModal }) {
+export default function Modal({ openModal, setOpenModal ,admin_email}) {
   const router = useRouter();
   const [hoverValue, setHoverValue] = useState(0);
   const [currentValue, setCurrentValue] = useState(undefined);
@@ -34,10 +34,11 @@ export default function Modal({ openModal, setOpenModal }) {
       initialValues: initialValue,
       validationSchema: FormSchema,
       onSubmit: (values) => {
-        if (values !=="") {
-          window.confirm("are you sure?")
-          router.replace('/movies')
-        }
+        console.log(admin_email)
+        // if (values !=="") {
+        //   window.confirm("are you sure?")
+        //   router.replace('/movies')
+        // }
       },
     });
 

@@ -27,19 +27,32 @@ export default function page({ params }) {
 
   const f = movies?.find((i) => i.rank == params.movie);
 
-  const handleAddtoCart = (f) => {
-    var data = JSON.parse(localStorage.getItem('watchLater')||"[]")
-    
-    var cartData = {
-      id: f._id,
-      image: f.thumbnail,
-      name: f.title,
-    };
+  const handleAddtoCart = ({f,admin_email}) => {
+    if (!admin_email) {
+      alert("Please login!")
+      window.location.replace("/account/signin");
+    } else {
+      var data = JSON.parse(localStorage.getItem("watchLater") || "[]");
 
-    data.push(cartData);
+      var cartData = {
+        id: f._id,
+        image: f.thumbnail,
+        name: f.title,
+      };
 
-    localStorage.setItem("watchLater", JSON.stringify(data));
-    alert("Wish list added")
+      data.push(cartData);
+
+      localStorage.setItem("watchLater", JSON.stringify(data));
+      alert("Wish list added");
+    }
+  };
+  const handleOpenModal = (admin_email) => {
+    if (!admin_email) {
+      alert("Please login!")
+      window.location.replace("/account/signin");
+    } else {
+      setOpenModal(true)
+    }
   };
 
   return (
@@ -67,22 +80,17 @@ export default function page({ params }) {
                   </span>
                 </div>
                 <div className="inline-block align-bottom">
-                  {admin_email == "admin@google.dev" && (
-                    <div className="gap-2 flex">
-                      <button
-                        onClick={() => handleAddtoCart(f)}
-                        className=""
-                      >
-                        <MdOutlineLibraryAdd/>
-                      </button>
-                      <button
-                        onClick={() => setOpenModal(true)}
-                        className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"
-                      >
-                        <i className="mdi mdi-cart -ml-2 mr-2"></i> make Rating
-                      </button>
-                    </div>
-                  )}
+                  <div className="gap-2 flex">
+                    <button onClick={() => handleAddtoCart({f,admin_email})} className="">
+                      <MdOutlineLibraryAdd />
+                    </button>
+                    <button
+                      onClick={() => handleOpenModal(admin_email)}
+                      className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"
+                    >
+                      <i className="mdi mdi-cart -ml-2 mr-2"></i> make Rating
+                    </button>
+                  </div>
                 </div>
                 <div className="mt-10">
                   <h1
@@ -103,7 +111,7 @@ export default function page({ params }) {
           </div>
         </div>
       )}
-      <Modal openModal={openModal} setOpenModal={setOpenModal} />
+      <Modal openModal={openModal} setOpenModal={setOpenModal} admin_email={admin_email}/>
     </div>
   );
 }
