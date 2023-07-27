@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import Modal from "../../../components/shared/Modal";
 import { BsStarFill } from "react-icons/bs";
+import { MdOutlineLibraryAdd } from "react-icons/md";
 import fetchData from "../../../components/FetchData";
 
 export default function page({ params }) {
@@ -27,7 +28,18 @@ export default function page({ params }) {
   const f = movies?.find((i) => i.rank == params.movie);
 
   const handleAddtoCart = (f) => {
-    localStorage.setItem("watchlater", JSON.stringify(f));
+    var data = JSON.parse(localStorage.getItem('watchLater')||"[]")
+    
+    var cartData = {
+      id: f._id,
+      image: f.thumbnail,
+      name: f.title,
+    };
+
+    data.push(cartData);
+
+    localStorage.setItem("watchLater", JSON.stringify(data));
+    alert("Wish list added")
   };
 
   return (
@@ -37,7 +49,7 @@ export default function page({ params }) {
           <div className="md:flex items-center -mx-10">
             <div className="w-full md:w-1/2 px-10 mb-10 md:mb-0">
               <div className="">
-                <img src={f.image} className="w-full z-10" alt="" />
+                <img src={f.image[2][1]} className="w-full z-10" alt="" />
               </div>
             </div>
             <div className="w-full lg:w-1/2 px-10">
@@ -59,9 +71,9 @@ export default function page({ params }) {
                     <div className="gap-2 flex">
                       <button
                         onClick={() => handleAddtoCart(f)}
-                        className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"
+                        className=""
                       >
-                        <i className="mdi mdi-cart -ml-2 mr-2"></i> Watch Later
+                        <MdOutlineLibraryAdd/>
                       </button>
                       <button
                         onClick={() => setOpenModal(true)}

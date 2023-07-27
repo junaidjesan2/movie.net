@@ -35,7 +35,7 @@ export default function AllMovies() {
 
   return (
     <div className="">
-      <div className="sm:mr-3/4 sm:ml-1 md:mr-none my-4">
+      <div className="sm:mr-3/4 sm:ml-1 md:mr-none my-14">
         <form action="" className="relative w-max">
           <input
             type="search"
@@ -63,7 +63,7 @@ export default function AllMovies() {
           <div className="h-fit w-full">
             <div className="w-full">
               <img
-                src={f.image}
+                src={f.image[1][1]}
                 className="mb-3 max-h-32 w-full rounded-xl object-cover"
                 alt=""
               />
@@ -75,6 +75,9 @@ export default function AllMovies() {
                     {f.title.slice(0, 15)}
                   </p>
                 </Link>
+                <div>
+                  <p className="text-sm">{f.description.slice(0, 75)}</p>
+                </div>
                 <div className="flex justify-center items-center gap-2">
                   <span className="text-sm">Rating: {f.rating} </span>
                   <span>
@@ -104,7 +107,7 @@ export default function AllMovies() {
                   <div className="h-fit w-full">
                     <div className=" w-full">
                       <img
-                        src={movie.image}
+                        src={movie.image[1][1]}
                         className="mb-3 max-h-32 w-full rounded-xl object-cover"
                         alt=""
                       />
@@ -116,6 +119,11 @@ export default function AllMovies() {
                             {movie.title.slice(0, 15)}
                           </p>
                         </Link>
+                        <div>
+                          <p className="text-sm">
+                            {movie.description.slice(0, 75)}
+                          </p>
+                        </div>
                         <span className="text-sm flex items-center">
                           Rating: {movie.rating} <BsStarFill />
                         </span>

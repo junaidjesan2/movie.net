@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { RiMenu3Fill } from "react-icons/ri";
 
 function Navbar() {
   const [openDrower, setOpenDrower] = useState(false);
@@ -39,6 +40,9 @@ function Navbar() {
               <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
                 <Link href="/wishList">wish List</Link>
               </li>
+              <li className="font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors">
+                <Link href="/account/logout">Logout</Link>
+              </li>
             </div>
           ) : (
             <div className="flex items-center gap-3">
@@ -56,32 +60,16 @@ function Navbar() {
           )}
         </ul>
         <div className="flex md:hidden gap-3 items-center">
-          <div className="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center">
-            <button onClick={() => setOpenDrower(true)}>
-              <div className="sm:hidden cursor-pointer" id="mobile-toggle">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    className="dark:stroke-white"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </div>
-            </button>
-            <Drower
-              openDrower={openDrower}
-              admin_email={admin_email}
-              setOpenDrower={setOpenDrower}
-            />
-          </div>
+          <button onClick={() => setOpenDrower(true)}>
+            <div className="sm:hidden cursor-pointer" id="mobile-toggle">
+              <RiMenu3Fill className="text-black" />
+            </div>
+          </button>
+          <Drower
+            openDrower={openDrower}
+            admin_email={admin_email}
+            setOpenDrower={setOpenDrower}
+          />
         </div>
       </nav>
     </>
@@ -103,7 +91,7 @@ const Drower = ({ openDrower, setOpenDrower, admin_email }) => {
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-4 w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -116,7 +104,7 @@ const Drower = ({ openDrower, setOpenDrower, admin_email }) => {
               />
             </svg>
           </span>
-          <span> Exit </span>
+          <span className="text-xs"> Exit </span>
         </li>
         <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
           <Link href="/" className="">
@@ -129,13 +117,20 @@ const Drower = ({ openDrower, setOpenDrower, admin_email }) => {
           </Link>
         </li>
         {admin_email == "admin@google.dev" ? (
-          <Link href="/wishList">
-            <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-              wish List
-            </li>
-          </Link>
+          <div className="">
+            <Link href="/wishList">
+              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                wish List
+              </li>
+            </Link>
+            <Link href="/account/logout">
+              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                Log Out
+              </li>
+            </Link>
+          </div>
         ) : (
-          <div className="flex items-center gap-3">
+          <div className="">
             <Link href="/account/signin" className="">
               <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
                 Sign In

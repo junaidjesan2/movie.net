@@ -1,7 +1,6 @@
 "use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
 
 const FormSchema = Yup.object().shape({
   email: Yup.string().email().required("Please enter your email"),
@@ -13,15 +12,14 @@ const initialValue = {
   password: "",
 };
 function App() {
-  const router=useRouter()
   const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
       if (values.email == "admin@google.dev" && values.password == "adminP") {
-        alert("confirm");
+        alert("Sign In Successfully");
         localStorage.setItem("email", `${values.email}`);
-        router.push('/')
+        window.location.replace("/");
       }else{
         alert("email and password are not matched")
       }

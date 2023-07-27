@@ -42,7 +42,7 @@ export default function page() {
               <div className="h-fit w-full">
                 <div className="relative w-full">
                   <img
-                    src={movie.image}
+                    src={movie.image[1][1]}
                     className="mb-3 max-h-32 w-full rounded-xl object-cover"
                     alt=""
                   />
@@ -50,10 +50,15 @@ export default function page() {
                 <div className="mb-3 flex items-center justify-between px-1 md:items-start">
                   <div className="mb-2">
                     <Link href={`/movies/${movie.rank}`}>
-                      <p className="text-lg font-bold text-navy-700">
+                      <p className="text-lg font-bold">
                         {movie.title.slice(0, 15)}
                       </p>
                     </Link>
+                    <div>
+                      <p className="text-sm">
+                        {movie.description.slice(0, 75)}
+                      </p>
+                    </div>
                     <div className="flex justify-center items-center gap-2">
                       <span className="text-sm">Rating: {movie.rating} </span>
                       <span>

@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaStar } from "react-icons/fa"
 
 const FormSchema = Yup.object().shape({
   comment: Yup.string().min(5).max(23).required("Please enter your First Name"),
@@ -14,17 +15,31 @@ const initialValue = {
 
 export default function Modal({ openModal, setOpenModal }) {
   const router = useRouter();
-  const [ratingValue, setRatingValue] = useState(0);
-  const { values, errors, handleSubmit, handleChange } = useFormik({
-    initialValues: initialValue,
-    validationSchema: FormSchema,
-    onSubmit: (values) => {
-      if (values !== "") {
-        alert("Successfully Commented");
-        router.push("/");
-      }
-    },
-  });
+  const [hoverValue, setHoverValue] = useState(0);
+  const [currentValue, setCurrentValue] = useState(undefined);
+  const [comment,setComment]=useState({})
+
+  const handleClick=(v)=>{
+    setCurrentValue(v)
+  }
+  const handleMouseHover=(v)=>{
+    setHoverValue(v)
+  }
+  const handleMouseLeave=(v)=>{
+    setHoverValue(undefined)
+  }
+
+  
+    const { values, errors, handleSubmit, handleChange } = useFormik({
+      initialValues: initialValue,
+      validationSchema: FormSchema,
+      onSubmit: (values) => {
+        if (values !=="") {
+          window.confirm("are you sure?")
+          router.replace('/movies')
+        }
+      },
+    });
 
   return (
     <div>
@@ -43,83 +58,17 @@ export default function Modal({ openModal, setOpenModal }) {
                     How was quality of the call?
                   </span>
                   <div className="flex space-x-3">
-                    <svg
-                      className={`${
-                        ratingValue === 1 || 2 || 3 || 4 || 5
-                          ? "w-12 h-12 text-yellow-500"
-                          : "text-gray-500 w-12 h-12"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={() => setRatingValue(1)}
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className={`${
-                        ratingValue === 2 || 3 || 4 || 5
-                          ? "w-12 h-12 text-yellow-500"
-                          : "text-gray-500 w-12 h-12"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={() => setRatingValue(2)}
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className={`${
-                        ratingValue === 3 || 4 || 5
-                          ? "w-12 h-12 text-yellow-500"
-                          : "text-gray-500 w-12 h-12"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={() => setRatingValue(3)}
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className={`${
-                        ratingValue === 4 || 5
-                          ? "w-12 h-12 text-yellow-500"
-                          : "text-gray-500 w-12 h-12"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={() => setRatingValue(4)}
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <svg
-                      className={`${
-                        ratingValue === 5
-                          ? "w-12 h-12 text-yellow-500"
-                          : "text-gray-500 w-12 h-12"
-                      }`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={() => setRatingValue(5)}
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
+                    {[...Array(5)].map((star, index) => {
+                      return (
+                        <FaStar
+                        className={(hoverValue||currentValue)> index?`w-4 mr-2 text-orange-400`:`w-4 mr-2 text-slate-300`}
+                        onClick={()=>handleClick(index+1)}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="w-3/4 flex flex-col">
-                  <textarea
-                    rows="3"
-                    className="p-4 text-gray-500 rounded-xl resize-none"
-                    name="comment"
-                    onChange={(e) => handleChange(e.target.value)}
-                  >
-                    Leave a message, if you want
-                  </textarea>
-                  {<div className="text-red-600">{errors.comment}</div>}
                   <button
                     onSubmit={() => handleSubmit()}
                     className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"

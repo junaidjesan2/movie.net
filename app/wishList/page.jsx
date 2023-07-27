@@ -1,18 +1,29 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 
 export default function page() {
-  const [movie, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [removeId, setRemoveId] = useState("");
 
   useEffect(() => {
-    const movie = localStorage.getItem("watchlater");
+    const movie = JSON.parse(localStorage.getItem("watchLater"));
     setMovies(movie);
   }, []);
 
-  const handleRemove = (movie) => {
-    alert("do you really want to remove")
-    localStorage.removeItem(`${movie}`);
+  const handleRemove = (id) => {
+    setRemoveId(id);
   };
+
+  if (removeId && movies) {
+    confirm("Do you really want to unlist this?");
+    let ind = movies.filter((i) => i.id !== removeId);
+    if (ind) {
+      console.log(ind)
+      localStorage.setItem("watchLater", JSON.stringify(ind));
+    location.reload()
+    }
+  }
+
   return (
     <div className="min-h-screen">
       <div class="mx-auto w-full max-w-2xl rounded-sm border border-gray-200 bg-white shadow-lg">
@@ -35,18 +46,19 @@ export default function page() {
             </thead>
 
             <tbody class="divide-y divide-gray-100 text-sm">
+              {movies.map((movie) => (
                 <tr>
                   <td class="p-2">
-                    <input type="checkbox" class="h-5 w-5" value="id-1" />
+                    <img src={movie.image} className="h-9 w-9" alt="" />
                   </td>
                   <td class="p-2">
-                    <div class="font-medium text-gray-800">{movie.title}</div>
+                    <div class="font-medium text-gray-800">{movie.name}</div>
                   </td>
                   <td class="p-2">
                     <div class="flex justify-center">
-                      <button onClick={() => handleRemove(movie)}>
+                      <button onClick={() => handleRemove(movie.id)}>
                         <svg
-                          class="h-8 w-8 rounded-full p-1 hover:bg-gray-100 hover:text-blue-600"
+                          class="h-5 w-5 rounded-full p-1 hover:bg-gray-100 hover:text-blue-600"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -63,6 +75,7 @@ export default function page() {
                     </div>
                   </td>
                 </tr>
+              ))}
             </tbody>
           </table>
         </div>

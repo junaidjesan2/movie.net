@@ -17,16 +17,15 @@ const initialValue = {
   password: "",
 };
 function App() {
-  const router = useRouter();
   
   const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
       if (values.email == "admin@google.dev" && values.password == "adminP") {
-        alert("confirm");
+        alert("Sign Up Successfully");
         localStorage.setItem("email", `${values.email}`);
-        router.push('/')
+        window.location.replace("/");
       }
     },
   });
