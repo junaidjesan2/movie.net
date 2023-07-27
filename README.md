@@ -12,7 +12,7 @@ yarn dev
 pnpm dev
 ```
 
-Open ([https://imaginative-pegasus-4d61b5.netlify.app/](https://repliqtest.netlify.app/)) with your browser to see the result.
+Open ((https://repliqtest.netlify.app/)) with your browser to see the result.
 email: admin@google.dev
 password: adminP
 
