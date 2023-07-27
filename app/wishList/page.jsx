@@ -15,7 +15,7 @@ export default function page() {
   };
 
   if (removeId && movies) {
-    confirm("Do you really want to unlist this?");
+    window.confirm("Do you really want to unlist this?");
     let ind = movies.filter((i) => i.id !== removeId);
     if (ind) {
       console.log(ind)
