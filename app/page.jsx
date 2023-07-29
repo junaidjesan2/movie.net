@@ -37,10 +37,10 @@ export default function page() {
           {sortMovies.slice(0, 20).map((movie) => (
             <div
               key={movie.rank}
-              className="!z-5 relative rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full md:h-fit drop-shadow hover:drop-shadow-md sm:h-fit !p-1 mb-4 3xl:p-![8px]"
+              className="!z-5 sticky rounded-[20px] max-w-[200px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  flex-col w-full md:h-fit drop-shadow hover:drop-shadow-md sm:h-fit !p-1 mb-4 3xl:p-![8px]"
             >
               <div className="h-fit w-full">
-                <div className="relative w-full">
+                <div className="sticky w-full">
                   <img
                     src={movie.image[1][1]}
                     className="mb-3 max-h-32 w-full rounded-xl object-cover"

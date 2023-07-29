@@ -82,68 +82,68 @@ const Drower = ({ openDrower, setOpenDrower, admin_email }) => {
     return null;
   }
   return (
-    <div className="w-48 fixed bg-white rounded-md shadow top-4 right-3">
-      <ul>
-        <li
-          onClick={() => setOpenDrower(false)}
-          className="px-3  py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400"
-        >
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-              />
-            </svg>
-          </span>
-          <span className="text-xs"> Exit </span>
-        </li>
-        <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-          <Link href="/" className="">
-            Home
-          </Link>
-        </li>
-        <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-          <Link href="/movies" className="">
-            All Movies
-          </Link>
-        </li>
-        {admin_email == "admin@google.dev" ? (
-          <div className="">
-            <Link href="/wishList">
-              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                wish List
-              </li>
+      <div className="w-48 h-fit fixed py-6 bottom-0 bg-slate-50 rounded-l-sm shadow top-0 right-0">
+        <ul>
+          <li
+            onClick={() => setOpenDrower(false)}
+            className="px-3  py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400"
+          >
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+            </span>
+            <span className="text-xs"> Exit </span>
+          </li>
+          <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+            <Link href="/" className="">
+              Home
             </Link>
-            <Link href="/account/logout">
-              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                Log Out
-              </li>
+          </li>
+          <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+            <Link href="/movies" className="">
+              All Movies
             </Link>
-          </div>
-        ) : (
-          <div className="">
-            <Link href="/account/signin" className="">
-              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                Sign In
-              </li>
-            </Link>
-            <Link href="/account/signup" className="">
-              <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
-                Sign Up
-              </li>
-            </Link>
-          </div>
-        )}
-      </ul>
-    </div>
+          </li>
+          {admin_email == "admin@google.dev" ? (
+            <div className="">
+              <Link href="/wishList">
+                <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  wish List
+                </li>
+              </Link>
+              <Link href="/account/logout">
+                <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  Log Out
+                </li>
+              </Link>
+            </div>
+          ) : (
+            <div className="">
+              <Link href="/account/signin" className="">
+                <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  Sign In
+                </li>
+              </Link>
+              <Link href="/account/signup" className="">
+                <li className="px-3 py-2 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  Sign Up
+                </li>
+              </Link>
+            </div>
+          )}
+        </ul>
+      </div>
   );
 };
