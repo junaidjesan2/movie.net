@@ -12,7 +12,7 @@ yarn dev
 pnpm dev
 ```
 
-Open ((https://repliqtest.netlify.app/)) with your browser to see the result.
+Open ((https://repliqtest.netlify.app/)) and use gived email and password to sign up or sign in.
 email: admin@google.dev
 password: adminP
 
