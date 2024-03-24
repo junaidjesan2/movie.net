@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import AuthenticationHOC from "../../components/authentication/authenticationHOC"
 
 export default function page() {
   const [movies, setMovies] = useState([]);
@@ -7,6 +8,7 @@ export default function page() {
 
   useEffect(() => {
     const movie = JSON.parse(localStorage.getItem("watchLater"));
+    console.log(movie)
     setMovies(movie);
   }, []);
 
@@ -18,14 +20,14 @@ export default function page() {
     window.confirm("Do you really want to unlist this?");
     let ind = movies.filter((i) => i.id !== removeId);
     if (ind) {
-      console.log(ind)
       localStorage.setItem("watchLater", JSON.stringify(ind));
-    location.reload()
+      location.reload();
     }
   }
 
   return (
-    <div className="min-h-screen">
+    <AuthenticationHOC>
+      <div className="min-h-screen">
       <div class="mx-auto w-full max-w-2xl rounded-sm border border-gray-200 bg-white shadow-lg">
         <header class="border-b border-gray-100 px-5 py-4">
           <div class="font-semibold text-gray-800">Manage Carts</div>
@@ -46,7 +48,7 @@ export default function page() {
             </thead>
 
             <tbody class="divide-y divide-gray-100 text-sm">
-              {movies.map((movie) => (
+              {movies && movies.map((movie) => (
                 <tr>
                   <td class="p-2">
                     <img src={movie.image} className="h-9 w-9" alt="" />
@@ -81,5 +83,6 @@ export default function page() {
         </div>
       </div>
     </div>
+    </AuthenticationHOC>
   );
 }
