@@ -17,16 +17,30 @@ const initialValue = {
   password: "",
 };
 function App() {
-  
   const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
-      if (values.email == "admin@google.dev" && values.password == "adminP") {
-        alert("Sign Up Successfully");
-        localStorage.setItem("email", `${values.email}`);
-        window.location.replace("/");
+      const storedData = JSON.parse(localStorage.getItem("data") || "null");
+
+      if (storedData && storedData.email === values.email) {
+        alert("Account found. Please sign in.");
+        window.location.replace("/account/signin");
+        return;
       }
+
+      const newUser = {
+        fName: values.fName,
+        email: values.email,
+        password: values.password,
+      };
+      users.push(newUser);
+      localStorage.setItem("data", JSON.stringify(users));
+
+      localStorage.setItem("userData", JSON.stringify(newUser));
+
+      alert("Sign Up Successfully");
+      window.location.replace("/");
     },
   });
 
@@ -51,7 +65,6 @@ function App() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.fName}
-              // placeholder="First Name"
               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
             {<div className="text-red-600">{errors.fName}</div>}

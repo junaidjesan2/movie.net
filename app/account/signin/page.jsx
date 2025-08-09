@@ -16,12 +16,27 @@ function App() {
     initialValues: initialValue,
     validationSchema: FormSchema,
     onSubmit: (values) => {
-      if (values.email == "admin@google.dev" && values.password == "adminP") {
+      const storedData = localStorage.getItem("data");
+
+      if (!storedData) {
+        alert("No account found. Please sign up first.");
+        window.location.replace("/account/signup");
+        return;
+      }
+
+      const data = JSON.parse(storedData);
+
+      if (values.email === data.email && values.password === data.password) {
+        const userData = {
+          email: values.email,
+          password: values.password,
+        };
+        localStorage.setItem("userData", JSON.stringify(userData)); 
         alert("Sign In Successfully");
-        localStorage.setItem("email", `${values.email}`);
         window.location.replace("/");
-      }else{
-        alert("email and password are not matched")
+      } else {
+        alert("Email and password do not match");
+        window.location.replace("/account/signup");
       }
     },
   });

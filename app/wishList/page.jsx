@@ -8,7 +8,6 @@ export default function page() {
 
   useEffect(() => {
     const movie = JSON.parse(localStorage.getItem("watchLater"));
-    console.log(movie)
     setMovies(movie);
   }, []);
 

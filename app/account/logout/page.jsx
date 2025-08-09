@@ -10,10 +10,12 @@ export default function page() {
   }, []);
   if (admin_email) {
     useEffect(() => {
-      window.confirm("Do you really want to Log Out?");
-      localStorage.removeItem("email");
-
-      window.location.replace("/");
+      const confirmLogout = window.confirm("Do you really want to Log Out?");
+      if (confirmLogout) {
+        localStorage.removeItem("userData");
+        window.location.reload();
+        window.location.replace("/");
+      }
     }, []);
   }
 }
