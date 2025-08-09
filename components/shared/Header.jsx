@@ -7,7 +7,6 @@ import { RiMenu3Fill } from "react-icons/ri";
 function Navbar() {
   const [openDrower, setOpenDrower] = useState(false);
   const [admin_email, setAdminEmail] = useState("");
-  console.log(admin_email);
   useEffect(() => {
     const storedData = localStorage.getItem("userData");
     if (storedData) {

@@ -6,9 +6,17 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 
 const FormSchema = Yup.object().shape({
-  fName: Yup.string().min(5).max(23).required("Please enter your First Name"),
-  email: Yup.string().email().required("Please enter your email"),
-  password: Yup.string().min(4).max(7).required("Please enter valid password"),
+  fName: Yup.string()
+    .min(2, "First name must be at least 2 characters")
+    .max(23, "First name too long")
+    .required("First name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .max(20, "Password too long")
+    .required("Password is required"),
 });
 
 const initialValue = {
@@ -16,33 +24,38 @@ const initialValue = {
   email: "",
   password: "",
 };
-function App() {
-  const { values, errors, handleSubmit, handleChange, handleBlur } = useFormik({
-    initialValues: initialValue,
-    validationSchema: FormSchema,
-    onSubmit: (values) => {
-      const storedData = JSON.parse(localStorage.getItem("data") || "null");
 
-      if (storedData && storedData.email === values.email) {
-        alert("Account found. Please sign in.");
-        window.location.replace("/account/signin");
-        return;
-      }
+export default function App() {
+  const router = useRouter();
 
-      const newUser = {
-        fName: values.fName,
-        email: values.email,
-        password: values.password,
-      };
-      users.push(newUser);
-      localStorage.setItem("data", JSON.stringify(users));
+  const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
+    useFormik({
+      initialValues: initialValue,
+      validationSchema: FormSchema,
+      onSubmit: (values) => {
+        let users = JSON.parse(localStorage.getItem("data")) || [];
 
-      localStorage.setItem("userData", JSON.stringify(newUser));
+        const userExists = users.some((user) => user.email === values.email);
+        if (userExists) {
+          alert("An account with this email already exists. Please sign in.");
+          router.push("/account/signin");
+          return;
+        }
 
-      alert("Sign Up Successfully");
-      window.location.replace("/");
-    },
-  });
+        const newUser = {
+          fName: values.fName,
+          email: values.email,
+          password: values.password,
+        };
+
+        users.push(newUser);
+        localStorage.setItem("data", JSON.stringify(users));
+        localStorage.setItem("userData", JSON.stringify(newUser));
+
+        alert("Sign Up Successful!");
+        router.push("/");
+      },
+    });
 
   return (
     <div className="flex items-center justify-center p-4">
@@ -53,7 +66,7 @@ function App() {
         <form onSubmit={handleSubmit}>
           <div className="mb-5">
             <label
-              for="fName"
+              htmlFor="fName"
               className="mb-3 block text-base font-medium text-[#07074D]"
             >
               First Name
@@ -67,11 +80,14 @@ function App() {
               value={values.fName}
               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
-            {<div className="text-red-600">{errors.fName}</div>}
+            {errors.fName && touched.fName && (
+              <div className="text-red-600 text-sm mt-1">{errors.fName}</div>
+            )}
           </div>
+
           <div className="mb-5">
             <label
-              for="email"
+              htmlFor="email"
               className="mb-3 block text-base font-medium text-[#07074D]"
             >
               Email
@@ -83,14 +99,16 @@ function App() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
-              min="0"
               className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
-            {<div className="text-red-600">{errors.email}</div>}
+            {errors.email && touched.email && (
+              <div className="text-red-600 text-sm mt-1">{errors.email}</div>
+            )}
           </div>
+
           <div className="mb-5">
             <label
-              for="password"
+              htmlFor="password"
               className="mb-3 block text-base font-medium text-[#07074D]"
             >
               Password
@@ -102,11 +120,13 @@ function App() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              min="0"
               className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
-            {<div className="text-red-600">{errors.password}</div>}
+            {errors.password && touched.password && (
+              <div className="text-red-600 text-sm mt-1">{errors.password}</div>
+            )}
           </div>
+
           <div>
             <button
               type="submit"
@@ -120,5 +140,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
