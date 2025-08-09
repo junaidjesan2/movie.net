@@ -12,8 +12,9 @@ export default function page({ params }) {
   const [admin_email, setAdminEmail] = useState([]);
 
   useEffect(() => {
-    const email = localStorage.getItem("email");
-    setAdminEmail(email);
+    const email = JSON.parse(localStorage.getItem("data") || "null");
+    console.log(email[0].email);
+    setAdminEmail(email[0].email);
   }, []);
 
   useEffect(() => {
@@ -27,9 +28,9 @@ export default function page({ params }) {
 
   const f = movies?.find((i) => i.rank == params.movie);
 
-  const handleAddtoCart = ({f,admin_email}) => {
+  const handleAddtoCart = ({ f, admin_email }) => {
     if (!admin_email) {
-      alert("Please login!")
+      alert("Please login!");
       window.location.replace("/account/signin");
     } else {
       var data = JSON.parse(localStorage.getItem("watchLater") || "[]");
@@ -46,12 +47,13 @@ export default function page({ params }) {
       alert("Wish list added");
     }
   };
+  console.log(admin_email);
   const handleOpenModal = (admin_email) => {
     if (!admin_email) {
-      alert("Please login!")
+      alert("Please login!");
       window.location.replace("/account/signin");
     } else {
-      setOpenModal(true)
+      setOpenModal(true);
     }
   };
 
@@ -81,7 +83,10 @@ export default function page({ params }) {
                 </div>
                 <div className="inline-block align-bottom">
                   <div className="gap-2 flex">
-                    <button onClick={() => handleAddtoCart({f,admin_email})} className="">
+                    <button
+                      onClick={() => handleAddtoCart({ f, admin_email })}
+                      className=""
+                    >
                       <MdOutlineLibraryAdd />
                     </button>
                     <button
@@ -111,7 +116,11 @@ export default function page({ params }) {
           </div>
         </div>
       )}
-      <Modal openModal={openModal} setOpenModal={setOpenModal} admin_email={admin_email}/>
+      <Modal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        admin_email={admin_email}
+      />
     </div>
   );
 }

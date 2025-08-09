@@ -1,17 +1,27 @@
-import { useState } from "react";
-import { useEffect } from "react";
+"use client";
+
+import { useState, useEffect, use } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AuthenticationHOC({ children }) {
-  const [admin_email, setAdminEmail] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
-    const email = localStorage.getItem("email");
-    setAdminEmail(email);
+    const userData = JSON.parse(localStorage.getItem("data") || "null");
+    if (userData && userData[0].email) {
+      setAuthenticated(true);
+    } else {
+      router.push("/account/signin");
+    }
+
+    setLoading(false);
   }, []);
 
-  if (!admin_email) {
-    return window.location.replace("/account/signin");
-  } else {
-    return children;
+  if (loading) {
+    return <div>Loading...</div>;
   }
+
+  return authenticated ? children : null;
 }
