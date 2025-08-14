@@ -13,7 +13,6 @@ export default function page({ params }) {
 
   useEffect(() => {
     const email = JSON.parse(localStorage.getItem("data") || "null");
-    console.log(email[0].email);
     setAdminEmail(email[0].email);
   }, []);
 
@@ -47,7 +46,6 @@ export default function page({ params }) {
       alert("Wish list added");
     }
   };
-  console.log(admin_email);
   const handleOpenModal = (admin_email) => {
     if (!admin_email) {
       alert("Please login!");
